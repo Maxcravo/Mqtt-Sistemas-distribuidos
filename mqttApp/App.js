@@ -1,9 +1,21 @@
-const { StyleSheet, Text, View, Button, StatusBar, TouchableHighlight } = require('react-native');
+import React, { useState } from 'react';
+const { StyleSheet, Text, View, Button, StatusBar, TouchableHighlight, TextInput } = require('react-native');
 
 export default function App() {
 
-// Colocar ipv4
-const url = ""
+// Criar objeto data com atributos message e topic. Message vai ser pego do input text e Topic vai ser pego do input selection
+
+// const data = {
+//   topic: ,
+//   message: 
+// }; 
+const [data, setData] = useState("");
+console.log(data)
+
+
+// Colocar "http://ipv4 + porta/" 
+const url = "http://192.168.3.93:3000/"
+
 
 async function listenFruit(fruitState) {
   try {
@@ -15,16 +27,14 @@ async function listenFruit(fruitState) {
   }
 }
 
-// Arrumar função de postar messagem no tópico
 
 async function sendFruitState(){
-
   try {
-    await fetch(`${url}/messageUnripe`, {
+    await fetch(`${url}messageFruit`, {
         method: "POST",
         mode: "cors",
-        headers: {"Content-type": "application/json; charset=UTF-8"},
-        body: "Fruta está verde"
+        headers: {"Content-Type": "application/json; charset=UTF-8"},
+        body: JSON.stringify(data)
     });
   }
   catch (error){
@@ -61,6 +71,14 @@ async function sendFruitState(){
         title="Enviar mensagem de fruta verde"
         />
       </TouchableHighlight>
+
+      <TextInput
+        style={styles.input}
+        value={data}
+        onChangeText={data => setData(data)}
+      />
+
+
       <StatusBar style="auto" />
     </View>
   );
@@ -74,11 +92,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button: {
-    height: 40,
-    width:160,
+    height: 60,
+    width: 160,
     borderRadius:10,
     marginLeft :50,
     marginRight:50,
     marginTop :20
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
   }
 });
