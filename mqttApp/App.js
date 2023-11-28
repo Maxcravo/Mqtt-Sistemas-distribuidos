@@ -1,9 +1,11 @@
+const config = require('./config').default;
+
 const { StyleSheet, Text, View, Button, StatusBar, TouchableHighlight } = require('react-native');
 
 export default function App() {
 
 // Colocar ipv4
-const url = ""
+const url = config.url;
 
 async function listenFruit(fruitState) {
   try {
@@ -18,7 +20,6 @@ async function listenFruit(fruitState) {
 // Arrumar função de postar messagem no tópico
 
 async function sendFruitState(){
-
   try {
     await fetch(`${url}/messageUnripe`, {
         method: "POST",

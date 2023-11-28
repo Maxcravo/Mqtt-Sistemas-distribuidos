@@ -1,3 +1,5 @@
+require('dotenv/config');
+
 const express = require('express');
 const mqtt = require('mqtt');
 
@@ -5,14 +7,13 @@ const app = express();
 const cors = require('cors');
 app.use(cors());
 
-const client = mqtt.connect('mqtt:/54bbec565e8c455e825d334236179365.s2.eu.hivemq.cloud', {
-    username: 'gpbezerra',
-    password: 'Gpbezerr4a'
+const client = mqtt.connect(process.env.CLUSTER_URL, {
+    username: process.env.CLUSTER_USERNAME,
+    password: process.env.PASSWORD
 });
 
 client.on("connect", () => {
     console.log("Conectado")
-    
 });
 
 app.get('/unripe', (req, res) => {
@@ -35,7 +36,6 @@ app.get('/rotten', (req, res) => {
     res.send("Fruta podre")
 })
 
-
 // Publicar mensagem vindo da req para o topico "unripe"
 app.post('/messageUnripe', (req, res) => {
     console.log(req.body)
@@ -46,8 +46,8 @@ app.post('/messageUnripe', (req, res) => {
     })
 })
 
-const port = 3000;
-const url = // Colocar  ipv4
+const port = process.env.PORT || 8000;
+const url = process.env.URL; // ipv4:port
 
 app.listen(port, url, () => {
     console.log("server on");
