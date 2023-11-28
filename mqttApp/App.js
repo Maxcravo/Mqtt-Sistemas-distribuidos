@@ -13,10 +13,8 @@ export default function App() {
 const [data, setData] = useState("");
 console.log(data)
 
-
-// Colocar "http://ipv4 + porta/" 
+// Colocar "http://ipv4:porta/" 
 const url = config.url;
-
 
 async function listenFruit(fruitState) {
   try {
@@ -27,7 +25,6 @@ async function listenFruit(fruitState) {
     console.error(error);
   }
 }
-
 
 async function sendFruitState(){
   try {

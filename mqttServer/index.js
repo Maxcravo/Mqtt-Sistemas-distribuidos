@@ -1,4 +1,4 @@
-require('dotenv/config');
+require('dotenv').config({ path: './mqttServer/.env' });
 
 const express = require('express');
 const mqtt = require('mqtt');
@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 
 const client = mqtt.connect(process.env.CLUSTER_URL, {
     username: process.env.CLUSTER_USERNAME,
-    password: process.env.PASSWORD
+    password: process.env.PASSWORD,
 });
 
 client.on("connect", () => {
@@ -75,7 +75,7 @@ app.post('/messageFruit', (req, res) => {
 
 
 const port = process.env.PORT || 8000;
-const ipv4 = process.env.URL; // ipv4
+const ipv4 = process.env.IP; // ipv4
 
 app.listen(port, ipv4, () => {
     console.log("server on");
