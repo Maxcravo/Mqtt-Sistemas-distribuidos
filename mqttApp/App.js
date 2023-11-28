@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+const config = require('./config').default;
 const { StyleSheet, Text, View, Button, StatusBar, TouchableHighlight, TextInput } = require('react-native');
 
 export default function App() {
@@ -14,7 +15,7 @@ console.log(data)
 
 
 // Colocar "http://ipv4 + porta/" 
-const url = "http://192.168.3.93:3000/"
+const url = config.url;
 
 
 async function listenFruit(fruitState) {

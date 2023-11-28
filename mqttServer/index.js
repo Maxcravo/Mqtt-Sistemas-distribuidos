@@ -1,3 +1,5 @@
+require('dotenv/config');
+
 const express = require('express');
 const mqtt = require('mqtt');
 const bodyParser = require('body-parser')
@@ -7,14 +9,13 @@ const cors = require('cors');
 app.use(cors());
 app.use(bodyParser.json());
 
-const client = mqtt.connect('mqtt:/54bbec565e8c455e825d334236179365.s2.eu.hivemq.cloud', {
-    username: 'gpbezerra',
-    password: 'Gpbezerr4a'
+const client = mqtt.connect(process.env.CLUSTER_URL, {
+    username: process.env.CLUSTER_USERNAME,
+    password: process.env.PASSWORD
 });
 
 client.on("connect", () => {
     console.log("Conectado");
-    
 });
 
 app.get('/unripe', (req, res) => {
@@ -59,7 +60,6 @@ app.get('/rotten', (req, res) => {
 
     res.send("Fruta podre")
 })
-
 // Ajustar função para verificar qual topico será publicado e qual a mensagem que foi enviada
 app.post('/messageFruit', (req, res) => {
     console.log(req.body);
@@ -74,8 +74,8 @@ app.post('/messageFruit', (req, res) => {
 })
 
 
-const port = 3000;
-const ipv4 = "192.168.3.93"
+const port = process.env.PORT || 8000;
+const ipv4 = process.env.URL; // ipv4
 
 app.listen(port, ipv4, () => {
     console.log("server on");
