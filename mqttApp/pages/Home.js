@@ -1,5 +1,5 @@
 // ! TODO: deixar só um tipo de import 
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, Button, StatusBar, TouchableHighlight, TextInput } from 'react-native';
 
 import { fruitStates } from '../resources/fruitData';
@@ -18,91 +18,50 @@ async function listenFruit(fruitState) {
 	}
 }
 
-async function sendFruitState() {
-	try {
-		await fetch(`${url}messageFruit`, {
-			method: "POST",
-			mode: "cors",
-			headers: { "Content-Type": "application/json; charset=UTF-8" },
-			body: JSON.stringify(data)
-		});
-	}
-	catch (error) {
-		console.error(error);
-	}
-}
-
-export default function HomePage() {
-	// Criar objeto data com atributos message e topic. Message vai ser pego do input text e Topic vai ser pego do input selection
-
-	// const data = {
-	//   topic: ,
-	//   message: 
-	// };
-
-	const [data, setData] = useState("");
-	console.log(data)
-
+export default function HomePage({ navigation }) {
 	return (
-		<View style={styles.container}>
+		<View style={homeStyles.container}>
 			<Text>Tentando uma comunicação com o MQTT</Text>
-			<TouchableHighlight style={styles.button}>
+
+			{fruitStates.map((fruitState) => {
+				return (
+					<TouchableHighlight key={fruitState.value} style={homeStyles.button}>
+						<Button
+							onPress={() => listenFruit(fruitState.value)}
+							title={`Ouvir fruta ${fruitState.label}`}
+						/>
+					</TouchableHighlight>
+				)
+			})}
+
+			<TouchableHighlight style={homeStyles.button}>
 				<Button
-					onPress={() => listenFruit("unripe")}
-					title="Ouvir fruta verde"
+					title="Enviar Mensagem"
+					onPress={() => navigation.navigate('SendData')}
 				/>
 			</TouchableHighlight>
 
-			<TouchableHighlight style={styles.button}>
-				<Button
-					onPress={() => listenFruit("ripe")}
-					title="Ouvir fruta Madura"
-				/>
-			</TouchableHighlight>
-
-			<TouchableHighlight style={styles.button}>
-				<Button
-					onPress={() => listenFruit("rotten")}
-					title="Ouvir fruta podre"
-				/>
-			</TouchableHighlight>
-
-			<TouchableHighlight style={styles.button}>
-				<Button
-					onPress={sendFruitState}
-					title="Enviar mensagem de fruta verde"
-				/>
-			</TouchableHighlight>
-
-			<TextInput
-				style={styles.input}
-				value={data}
-				onChangeText={data => setData(data)}
-			/>
 			<StatusBar style="auto" />
 		</View>
 	)
 }
 
-const styles = StyleSheet.create({
+const homeStyles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: '#fff',
 		alignItems: 'center',
 		justifyContent: 'center',
+		padding: '2%'
+	},
+	title: {
+		fontSize: 15,
+		fontWeight: 'bold'
 	},
 	button: {
 		height: 60,
-		width: 160,
+		width: '100%',
 		borderRadius: 10,
-		marginLeft: 50,
-		marginRight: 50,
-		marginTop: 20
+		marginTop: 10
 	},
-	input: {
-		height: 40,
-		margin: 12,
-		borderWidth: 1,
-		padding: 10,
-	}
 });
