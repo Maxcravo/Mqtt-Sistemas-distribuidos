@@ -1,7 +1,8 @@
 // ! TODO: deixar só um tipo de import 
 import React from 'react';
-import { StyleSheet, Text, View, Button, StatusBar, TouchableHighlight, TextInput } from 'react-native';
+import { Text, View, Button, StatusBar, TouchableHighlight } from 'react-native';
 
+import globalStyles from './globalStyles';
 import { fruitStates } from '../resources/fruitData';
 
 const config = require('../config').default;
@@ -20,12 +21,12 @@ async function listenFruit(fruitState) {
 
 export default function HomePage({ navigation }) {
 	return (
-		<View style={homeStyles.container}>
+		<View style={globalStyles.pageContainer}>
 			<Text>Tentando uma comunicação com o MQTT</Text>
 
 			{fruitStates.map((fruitState) => {
 				return (
-					<TouchableHighlight key={fruitState.value} style={homeStyles.button}>
+					<TouchableHighlight key={fruitState.value} style={globalStyles.button}>
 						<Button
 							onPress={() => listenFruit(fruitState.value)}
 							title={`Ouvir fruta ${fruitState.label}`}
@@ -34,7 +35,7 @@ export default function HomePage({ navigation }) {
 				)
 			})}
 
-			<TouchableHighlight style={homeStyles.button}>
+			<TouchableHighlight style={globalStyles.button}>
 				<Button
 					title="Enviar Mensagem"
 					onPress={() => navigation.navigate('SendData')}
@@ -44,24 +45,4 @@ export default function HomePage({ navigation }) {
 			<StatusBar style="auto" />
 		</View>
 	)
-}
-
-const homeStyles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center',
-		padding: '2%'
-	},
-	title: {
-		fontSize: 15,
-		fontWeight: 'bold'
-	},
-	button: {
-		height: 60,
-		width: '100%',
-		borderRadius: 10,
-		marginTop: 10
-	},
-});
+};

@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableHighlight, Button } from 'react-native';
-
 import RNPickerSelect from 'react-native-picker-select';
+
+import globalStyles from './globalStyles';
 import { fruitStates } from '../resources/fruitData';
 
 // Todo: estruturar como enviar
@@ -37,11 +38,11 @@ export default function SendDataPage() {
 	}
 
 	return (
-		<View style={sendDataStyles.pageContainer}>
+		<View style={globalStyles.pageContainer}>
 			<View style={sendDataStyles.inputContainer}>
 				<Text style={sendDataStyles.inputLabel}>Escreva sua mensagem</Text>
 				<TextInput
-					style={sendDataStyles.input}
+					style={{ ...globalStyles.input, ...sendDataStyles.input}}
 					multiline={true}
 					value={message}
 					onChangeText={message => setMessage(message)}
@@ -76,12 +77,6 @@ export default function SendDataPage() {
 }
 
 const sendDataStyles = StyleSheet.create({
-	pageContainer: {
-		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center',
-		padding: '2%'
-	},
 	inputContainer: {
 		width: '100%',
 		marginVertical: 10,
@@ -89,26 +84,24 @@ const sendDataStyles = StyleSheet.create({
 		backgroundColor: '#D4D4D4',
 		borderRadius: 8
 	},
+
 	input: {
 		height: 100,
-		width: '100%',
-		marginTop: 5,
-		padding: 5,
-		borderWidth: 1,
-		borderRadius: 8,
-		color: '#000000',
 		textAlignVertical: 'top'
 	},
+
 	inputLabel: {
 		fontWeight: 'bold',
 		color: '#000000',
 		fontSize: 14,
 		alignSelf: 'flex-start'
 	},
+
 	placeholder: {
 		color: '#000000',
 		fontSize: 12
 	},
+	
 	button: {
 		height: 40,
 		width: '100%',
