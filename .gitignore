@@ -1,5 +1,5 @@
 mqttServer/.env
 
-mqqtServer/node_modules
+mqttServer/node_modules
 
 mqttApp/config.js

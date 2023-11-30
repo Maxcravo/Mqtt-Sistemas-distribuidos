@@ -4,25 +4,9 @@ import RNPickerSelect from 'react-native-picker-select';
 
 import globalStyles from './globalStyles';
 import { fruitStates } from '../resources/fruitData';
+import config from '../config';
 
-async function sendFruitState() {
-	const data = {
-		message,
-		topic
-	};
-
-	try {
-		await fetch(`${url}messageFruit`, {
-			method: "POST",
-			mode: "cors",
-			headers: { "Content-Type": "application/json; charset=UTF-8" },
-			body: JSON.stringify(data)
-		});
-	}
-	catch (error) {
-		console.error(error);
-	}
-}
+const url = config.url;
 
 export default function SendDataPage() {
 	const [message, setMessage] = useState("");
@@ -34,6 +18,25 @@ export default function SendDataPage() {
 	const placeholder = {
 		label: "Selecione um tópico...",
 		value: null
+	}
+
+	async function sendFruitState() {
+		const data = {
+			message,
+			topic
+		};
+
+		try {
+			await fetch(`${url}messageFruit`, {
+				method: "POST",
+				mode: "cors",
+				headers: { "Content-Type": "application/json; charset=UTF-8" },
+				body: JSON.stringify(data)
+			});
+		}
+		catch (error) {
+			console.error(error);
+		}
 	}
 
 	return (
