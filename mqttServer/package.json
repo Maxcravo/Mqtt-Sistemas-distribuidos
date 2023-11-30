@@ -14,6 +14,7 @@
     "dotenv": "^16.3.1",
     "epress": "^0.0.1-security",
     "express": "^4.18.2",
-    "mqtt": "^5.3.0"
+    "mqtt": "^5.3.0",
+    "nodemon": "^3.0.1"
   }
 }

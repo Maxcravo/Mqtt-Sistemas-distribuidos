@@ -6,15 +6,19 @@ export default function App() {
 
 // Criar objeto data com atributos message e topic. Message vai ser pego do input text e Topic vai ser pego do input selection
 
-// const data = {
-//   topic: ,
-//   message: 
-// }; 
-const [data, setData] = useState("");
+
+const fruitOptions = ["unripe", "ripe", "rotten"]; 
+
+const [data, setData] = useState({
+  topic: "",
+  message: ""
+});
+
 console.log(data)
 
 // Colocar "http://ipv4:porta/" 
-const url = config.url;
+const url = "http://192.168.3.93:3000/";
+
 
 async function listenFruit(fruitState) {
   try {
@@ -63,18 +67,26 @@ async function sendFruitState(){
         />
       </TouchableHighlight>
 
-      <TouchableHighlight style ={styles.button}>
-        <Button
-        onPress={sendFruitState}
-        title="Enviar mensagem de fruta verde"
-        />
-      </TouchableHighlight>
-
+      <View style={styles.buttonsContainer}>
+        <Button onPress={() => setData({topic: fruitOptions[0], message: data.message})} title="Fruta verde"/>
+        <Button onPress={() => setData({topic: fruitOptions[1], message: data.message})} title="Fruta Madura"/>
+        <Button onPress={() => setData({topic: fruitOptions[2], message: data.message})} title="Fruta podre"/>
+        {/* <Button onPress={handleData(fruitOptions[1], data.message)}/> */}
+        {/* <Button onPress={handleData(fruitOptions[2], data.message)}/> */}
+      </View>
       <TextInput
         style={styles.input}
         value={data}
-        onChangeText={data => setData(data)}
+        onChangeText={data => setData({topic: data.topic, message: data})}
       />
+
+
+      <TouchableHighlight style ={styles.button}>
+        <Button
+        onPress={sendFruitState}
+        title="Enviar mensagem para tópico"
+        />
+      </TouchableHighlight>
 
 
       <StatusBar style="auto" />
@@ -99,8 +111,12 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
+    width: 300,
     margin: 12,
     borderWidth: 1,
     padding: 10,
+  },
+  buttonsContainer: {
+    display: "flex"
   }
 });
