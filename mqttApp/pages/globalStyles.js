@@ -18,13 +18,13 @@ const globalStyles = StyleSheet.create({
 		height: 60,
 		width: '100%',
 		borderRadius: 10,
-		marginTop: 10
+		marginVertical: 10
 	},
 
 	input: {
 		height: 60,
 		width: '100%',
-		marginTop: 5,
+		marginVertical: 5,
 		padding: 5,
 		borderWidth: 1,
 		borderRadius: 8,

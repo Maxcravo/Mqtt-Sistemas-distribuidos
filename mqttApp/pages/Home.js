@@ -1,23 +1,8 @@
-// ! TODO: deixar só um tipo de import 
 import React from 'react';
 import { Text, View, Button, StatusBar, TouchableHighlight } from 'react-native';
 
 import globalStyles from './globalStyles';
 import { fruitStates } from '../resources/fruitData';
-
-const config = require('../config').default;
-const url = config.url; // "http://ipv4:porta/" 
-
-
-async function listenFruit(fruitState) {
-	try {
-		const response = await fetch(url + fruitState);
-		const data = await response.text();
-		console.log(data);
-	} catch (error) {
-		console.error(error);
-	}
-}
 
 export default function HomePage({ navigation }) {
 	return (
@@ -28,7 +13,7 @@ export default function HomePage({ navigation }) {
 				return (
 					<TouchableHighlight key={fruitState.value} style={globalStyles.button}>
 						<Button
-							onPress={() => listenFruit(fruitState.value)}
+							onPress={() => {navigation.navigate('ListenTopic', { topic: fruitState })}}
 							title={`Ouvir fruta ${fruitState.label}`}
 						/>
 					</TouchableHighlight>
