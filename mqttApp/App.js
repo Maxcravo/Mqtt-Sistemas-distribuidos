@@ -25,9 +25,9 @@ export default function App() {
         />
         <Stack.Screen
           name="ListenTopic"
-          component={ListenTopic} 
-          options={{ title: 'Enviar Mensagem'}}
-          initialParams={{ topic: { label: '', value: ''} }} 
+          component={ListenTopic}
+          options={{ title: 'Enviar Mensagem' }}
+          initialParams={{ topic: { label: '', value: '' } }}
         />
       </Stack.Navigator>
     </NavigationContainer>

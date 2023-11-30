@@ -5,9 +5,8 @@ import RNPickerSelect from 'react-native-picker-select';
 import globalStyles from './globalStyles';
 import { fruitStates } from '../resources/fruitData';
 
-// Todo: estruturar como enviar
 async function sendFruitState() {
-	const postData = {
+	const data = {
 		message,
 		topic
 	};
@@ -17,7 +16,7 @@ async function sendFruitState() {
 			method: "POST",
 			mode: "cors",
 			headers: { "Content-Type": "application/json; charset=UTF-8" },
-			body: JSON.stringify(postData)
+			body: JSON.stringify(data)
 		});
 	}
 	catch (error) {
@@ -69,7 +68,7 @@ export default function SendDataPage() {
 			<TouchableHighlight style={sendDataStyles.button}>
 				<Button
 					onPress={sendFruitState}
-					title="Enviar mensagem de fruta verde"
+					title="Enviar mensagem"
 				/>
 			</TouchableHighlight>
 		</View>
